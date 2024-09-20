@@ -1,0 +1,12 @@
+{
+  "name": "nodejs_prod",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tushar",
+  "license": "ISC",
+  "description": ""
+}
