@@ -13,31 +13,31 @@ export default tseslint.config({
     }
   },
   files: ['**/*.ts'],
-   plugins: {
-      'check-file': checkFile,
-    },
+  plugins: {
+    'check-file': checkFile
+  },
   extends: [
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     eslintConfigPrettier
   ],
-  rules:{
-    semi: "error",
-    "prefer-arrow-callback": ["error"],
-    "prefer-template": ["error"],
-    "check-file/filename-naming-convention": [
-      "error",
+  rules: {
+    semi: 'error',
+    'prefer-arrow-callback': ['error'],
+    'prefer-template': ['error'],
+    'check-file/filename-naming-convention': [
+      'error',
       {
-        "**/*.ts": "SNAKE_CASE"
+        '**/*.ts': 'SNAKE_CASE'
       },
       {
-        "ignoreMiddleExtensions": true
+        ignoreMiddleExtensions: true
       }
     ],
-    "check-file/folder-naming-convention": [
-      "error",
+    'check-file/folder-naming-convention': [
+      'error',
       {
-        "src/**": "KEBAB_CASE"
+        'src/**': 'KEBAB_CASE'
       }
     ]
   }
