@@ -23,7 +23,7 @@ export default function httpErrorObject(
         ? error.message || RESPONSE_MEESSAGES.GENERIC_ERROR
         : RESPONSE_MEESSAGES.GENERIC_ERROR,
     data: null,
-    trace: error instanceof Error ? { error: error.stack } : null
+    trace: error instanceof Error ? { error: `${error.stack}` } : null
   };
 
   if (config.env === ApplicationEnviromentEnum.PRODUCTION) {

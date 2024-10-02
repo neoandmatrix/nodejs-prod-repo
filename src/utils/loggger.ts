@@ -8,22 +8,46 @@ import { config } from '../config/config.js';
 import { ApplicationEnviromentEnum } from '../constants/application.js';
 import path from 'path';
 import rootDirname from './root_file_name_provide.js';
+import {
+  blueBright,
+  cyanBright,
+  greenBright,
+  magentaBright,
+  redBright,
+  yellowBright
+} from 'colorette';
+
+const colorizeLevel = (level: string) => {
+  switch (level) {
+    case 'ERROR':
+      return redBright(level);
+    case 'INFO':
+      return blueBright(level);
+    case 'WARN':
+      return yellowBright(level);
+    default:
+      return level;
+  }
+};
 
 const consoleLoggerFormat = format.printf((info) => {
   const { level, message, timestamp, metadata = {} } = info;
 
-  const customLevel = level.toUpperCase();
+  const customLevel = colorizeLevel(level.toUpperCase());
 
-  const customTimeStamp = timestamp;
+  const customTimeStamp = greenBright(timestamp);
 
-  const customMessage = message;
+  const customMessage = magentaBright(message);
 
   const customMetaData = util.inspect(metadata, {
     showHidden: false,
-    depth: null
+    depth: null,
+    colors: true
   });
 
-  const customLog = `${customLevel} [${customTimeStamp}] ${customMessage}\n ${'Meta Data'} ${customMetaData}\n`;
+  const enviroment = config.env;
+
+  const customLog = ` ${customLevel} [${customTimeStamp}] ${customMessage}\n ${cyanBright('Meta Data')} ${customMetaData} \n ${enviroment}\n`;
 
   return customLog;
 });
@@ -45,11 +69,13 @@ const fileLoggerFormat = format.printf((info) => {
     }
   }
 
+  const enviroment = config.env;
   const logData = {
     level: level.toUpperCase(),
     message,
     timestamp,
-    meta: logMeta
+    meta_Data: logMeta,
+    enviroment
   };
 
   return JSON.stringify(logData, null, 4);
@@ -70,6 +96,7 @@ const consoleTransport = (): Array<ConsoleTransportInstance> => {
 const fileTransport = (): Array<FileTransportInstance> => {
   return [
     new transports.File({
+      handleExceptions: true,
       filename: path.join(
         rootDirname,
         '../',
